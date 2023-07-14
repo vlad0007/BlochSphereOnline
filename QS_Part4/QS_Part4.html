@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>QS_Part4
+	</title>
+	<link rel="stylesheet" type="text/css" href="../libs/style.css">
+
+	
+	  <style>
+	   .leftimg 
+	   {
+		float:left; /* Выравнивание по левому краю */
+		margin: 7px 7px 7px 0; /* Отступы вокруг картинки */
+	   }
+	   .rightimg  
+	   {
+		float: right; /* Выравнивание по правому краю  */ 
+		margin: 7px 0 7px 7px; /* Отступы вокруг картинки */
+	   }
+	  </style>
+  
+	<style>
+		#div_out
+		{
+			position: relative;
+			width: 1300px;
+			height: 560px;
+			left: 0px;
+			background-color: #fafffa;
+			border: solid 2px;
+		}
+		
+		#div_pars_SG
+		{
+			position: absolute;
+			left: 730px;
+			top: 2px;			
+			height: 410px;
+			width: 300px;
+			background-color: #fafffa;
+			border: solid 1px;
+		}
+
+		#div_BS
+		{
+			position: absolute;
+			left: 730px;
+			top: 420px;			
+			height: 100px;
+			width: 150px;
+			background-color: #ccccff;
+			border: solid 2px;
+		}
+		
+		#div_quant_params
+		{
+			position: absolute;
+			left: 880px;
+			top: 420px;			
+			height: 100px;
+			width: 410px;
+			background-color: #fafffa;
+			border: solid 2px;
+		}
+		
+		#gui_container
+		{
+			position: absolute;
+			left: 1040px;
+			top: 8px;
+		}
+		
+		#div_rotate
+		{
+			position: absolute;
+			left: 4px;
+			top: 525px;
+			width: 1290px;
+			height: 34px;
+			<!-- background-color: #ffffff; -->
+		}
+	</style>
+			
+	<style>
+		button
+		{
+		  border-radius: 12px;
+		  border: none;
+		  padding: 10px;
+		  color: #111;
+		  font: italic bold 18px Georgia,serif;
+		  transition: all 0.2s;
+		  margin: 5px;
+		  border-bottom: 0px solid #eee;
+		  cursor:pointer;
+						position: absolute;
+						left: 50px;
+						top: 10px;	
+		}
+		button:active
+		{
+		  transform: scaleX(0.9) translateY(4px);
+		}
+
+		button.yellow{
+		  background: #88aa00;
+		}
+		button.yellow:not(:active){
+		  border-bottom: 4px solid #333300;
+		}
+		
+		button.rot
+		{
+		  border-radius: 0px;
+		  border: 2px;
+		  font: bold 16px Ariel;
+		  background: #777777;
+		  padding: 4px 4px;
+		  border-radius: 6px;
+		  cursor:pointer;
+		}
+		
+		button.quant
+		{
+		  border-radius: 0px;
+		  border: 2px;
+		  font: bold 16px Ariel;
+		  background: #777777;
+		  padding: 4px 12px;
+		  border-radius: 6px;
+		  cursor:pointer;
+		}
+		
+	</style>
+
+	<style>
+		.aligncenter 
+		{
+			text-align: center;
+		}
+		.red2  {
+			color: red; /* цвет выделения */
+			font-weight: bold;
+			font-size: 14pt;
+		}
+	</style>
+</head>
+
+<body>
+
+<h3 align = "center">&emsp;&emsp;
+<a href="../index.html"> <span class=brown>Preface</span></a> 
+
+&emsp;&emsp;&emsp;
+<a href="../QS_Part1/QS_Part1.html"> <span class=brown>Part Ⅰ </span></a>  
+
+&emsp;&emsp;&emsp;
+ <a href="../QS_Part2/QS_Part2.html"> <span class=brown> Part Ⅱ  </span></a>
+ 
+ &emsp;&emsp;&emsp;
+ <a href="../QS_Part3/QS_Part3.html"> <span class=brown> Part Ⅲ  </span></a>
+</h3>
+
+<h2 align = "center">Сфера Блоха и эксперимент Штерна-Герлаха. &ensp;&ensp; <span class=sien>Part &#8547;</span></h2>
+
+<h3 align = "center">Решение упражнений 3.3, 3.4 и 3.5 из книги Сасскинда и Фридмана "Квантовая механика". &ensp;&ensp; </h3>
+
+<div style="text-align: center;">
+  <img src="page_0.png">
+</div>
+
+<p>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img src = "page_2a.png"><br>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img src = "page_3.png"><br>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img src = "page_4.png"><br>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img src = "page_5.png"><br>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img src = "page_6.png"><br>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img src = "page_7.png"><br>
+<br>
+<h3 align = "center">&emsp;&emsp;
+<a href="../index.html"> <span class=brown>Preface</span></a> 
+
+&emsp;&emsp;&emsp;
+<a href="../QS_Part1/QS_Part1.html"> <span class=brown>Part Ⅰ </span> </a>  
+
+&emsp;&emsp;&emsp;
+<a href="../QS_Part2/QS_Part2.html"> <span class=brown> Part Ⅱ  </span></a>
+ 
+&emsp;&emsp;&emsp;
+<a href="../QS_Part3/QS_Part3.html"> <span class=brown> Part Ⅲ  </span></a>
+</h3>
+</body>
+</html>

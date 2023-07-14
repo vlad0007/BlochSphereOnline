@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>QS_Part3
+	</title>
+	<link rel="stylesheet" type="text/css" href="../libs/style.css">
+	<script type="text/javascript" src="../libs/three.js"></script>
+	<script type = "text/javascript" src = "../libs/dat.gui.js"></script>
+	<script src = "../libs/OrbitControls.js"></script>
+	<script src = "../libs/WebGeometry.js"></script>
+	<script src = "qs_part3.js"></script>
+	<script src = "rotation_part3.js"></script>
+	<script src = "buttons_part3.js"></script>
+	
+	  <style>
+	   .leftimg 
+	   {
+		float:left; /* Выравнивание по левому краю */
+		margin: 7px 7px 7px 0; /* Отступы вокруг картинки */
+	   }
+	   .rightimg  
+	   {
+		float: right; /* Выравнивание по правому краю  */ 
+		margin: 7px 0 7px 7px; /* Отступы вокруг картинки */
+	   }
+	  </style>
+  
+	<style>
+		#div_out
+		{
+			position: relative;
+			width: 1300px;
+			height: 560px;
+			left: 0px;
+			background-color: #fafffa;
+			border: solid 2px;
+		}
+		
+		#div_pars_SG
+		{
+			position: absolute;
+			left: 730px;
+			top: 2px;			
+			height: 410px;
+			width: 300px;
+			background-color: #fafffa;
+			border: solid 1px;
+		}
+
+		#div_BS
+		{
+			position: absolute;
+			left: 730px;
+			top: 420px;			
+			height: 100px;
+			width: 150px;
+			background-color: #ccccff;
+			border: solid 2px;
+		}
+		
+		#div_quant_params
+		{
+			position: absolute;
+			left: 880px;
+			top: 420px;			
+			height: 100px;
+			width: 410px;
+			background-color: #fafffa;
+			border: solid 2px;
+		}
+		
+		#gui_container
+		{
+			position: absolute;
+			left: 1040px;
+			top: 8px;
+		}
+		
+		#div_rotate
+		{
+			position: absolute;
+			left: 4px;
+			top: 525px;
+			width: 1290px;
+			height: 34px;
+			<!-- background-color: #ffffff; -->
+		}
+	</style>
+			
+	<style>
+		button
+		{
+		  border-radius: 12px;
+		  border: none;
+		  padding: 10px;
+		  color: #111;
+		  font: italic bold 18px Georgia,serif;
+		  transition: all 0.2s;
+		  margin: 5px;
+		  border-bottom: 0px solid #eee;
+		  cursor:pointer;
+						position: absolute;
+						left: 50px;
+						top: 10px;	
+		}
+		button:active
+		{
+		  transform: scaleX(0.9) translateY(4px);
+		}
+
+		button.yellow{
+		  background: #88aa00;
+		}
+		button.yellow:not(:active){
+		  border-bottom: 4px solid #333300;
+		}
+		
+		button.rot
+		{
+		  border-radius: 0px;
+		  border: 2px;
+		  font: bold 16px Ariel;
+		  background: #777777;
+		  padding: 4px 4px;
+		  border-radius: 6px;
+		  cursor:pointer;
+		}
+		
+		button.quant
+		{
+		  border-radius: 0px;
+		  border: 2px;
+		  font: bold 16px Ariel;
+		  background: #777777;
+		  padding: 4px 12px;
+		  border-radius: 6px;
+		  cursor:pointer;
+		}
+		
+	</style>
+
+	<style>
+		.aligncenter 
+		{
+			text-align: center;
+		}
+		.red2  {
+			color: red; /* цвет выделения */
+			font-weight: bold;
+			font-size: 14pt;
+		}
+	</style>
+</head>
+
+<body>
+
+<h3 align = "center">&emsp;&emsp;
+<a href="../index.html"> <span class=brown>Preface</span></a> 
+
+&emsp;&emsp;&emsp;
+<a href="../QS_Part1/QS_Part1.html"> <span class=brown>Part Ⅰ </span></a>  
+
+&emsp;&emsp;&emsp;
+ <a href="../QS_Part2/QS_Part2.html"> <span class=brown>Part Ⅱ  </span></a>
+ 
+ &emsp;&emsp;&emsp;
+ <a href="../QS_Part4/QS_Part4.html"> <span class=brown>Part &#8547;  </span></a>
+</h3>
+
+<h2 align = "center">Сфера Блоха и эксперимент Штерна-Герлаха. &ensp;&ensp; <span class=sien>Part Ⅲ.</span></h2>
+<big>
+<p>
+
+</p>
+</big>
+
+<br>
+<div id="div_out">  
+	<!-- // Положение hud_1 совпадает с положением canvas_draw. Но у canvas_draw z-index = 1, а у hud_1 z-index = 0. -->
+	<canvas id = "canvas_draw" width="720" height="525" style = "border: 1px solid; position: absolute; z-index: 1"></canvas>
+	<canvas id = "hud_1" width="725" height="525" style = "position: absolute; z-index: 0"></canvas>
+	<div>	
+			<div id="div_pars_SG" >
+				<button class='yellow' id = 'btn_measurment' style = "position: absolute; left: 20px;" >Measurement</button>
+				<button class='yellow' id = 'btn_reset'  style = "position: absolute; left: 200px;   background: #aaaaff;">Reset</button>
+				<button class='yellow' id = 'btn_reset_2'  style = "position: absolute; left: 100px;   background: #aaaaff;">Reset</button>
+				<canvas id="hud_2" width="300" height="400"></canvas>
+			</div>		
+			<div id = "gui_container" ></div>
+	</div>
+	
+	<div id = div_BS>
+		<p>
+		<input type="radio" value = "stern_gerlach" checked name = "select"  onchange = "handleChange(this)";>Stern-Gerlach
+		</p>
+		<p>
+		<input type="radio" value = "bkoch_sphere" name = "select"  onchange = "handleChange(this);">Bloch Sphere
+		</p>
+	</div>
+	
+	<div  id = "div_quant_params" >
+		<canvas id="quant_params" width="560" height="100"></canvas>
+	</div>
+	<div id="div_rotate">
+		<button class='rot' id = 'btn_rotX_plus' style = "position: absolute; top: 0px; left: 4px; background: #22aaaa;" >Rotate X+</button>
+		<button class='rot' id = 'btn_rotX_min'  style = "position: absolute; top: 0px; left: 90px; background: #77aaaa;" >Rotate X-</button>
+		<button class='rot' id = 'btn_rotY_plus' style = "position: absolute; top: 0px; left: 190px; background: #22aaaa;" >Rotate Y+</button>
+		<button class='rot' id = 'btn_rotY_min'  style = "position: absolute; top: 0px; left: 276px; background: #77aaaa;" >Rotate Y-</button>
+		<button class='rot' id = 'btn_rotZ_plus' style = "position: absolute; top: 0px; left: 376px; background: #22aaaa;" >Rotate Z+</button>
+		<button class='rot' id = 'btn_rotZ_min'  style = "position: absolute; top: 0px; left: 466px; background: #77aaaa;" >Rotate Z-</button>
+		
+		<button class='rot' id = 'btn_rotN_plus'  style = "position: absolute; top: 0px; left: 570px; background: #22aaaa;" >Rotate N+</button>
+		<button class='rot' id = 'btn_rotN_min'  style = "position: absolute; top: 0px; left: 656px; background: #77aaaa;" >Rotate N-</button>
+		
+		<button class='quant' id = 'btn_X'  style = "position: absolute; top: 0px; left: 810px; background: #77aaaa;" >X</button>
+		<button class='quant' id = 'btn_Y'  style = "position: absolute; top: 0px; left: 855px; background: #77aaaa;" >Y</button>
+		<button class='quant' id = 'btn_Z'  style = "position: absolute; top: 0px; left: 900px; background: #77aaaa;" >Z</button>
+		<button class='quant' id = 'btn_H'  style = "position: absolute; top: 0px; left: 945px; background: #77aaaa;" >H</button>
+		
+		<button class='quant' id = 'btn_Deg10'  style = "position: absolute; top: 0px; left: 1008px; background: #bbbbbb;" >10°</button>
+		<button class='quant' id = 'btn_Deg5'  style = "position: absolute; top: 0px; left: 1060px; background: #bbbbbb;" >5°</button>
+		<button class='quant' id = 'btn_Deg2'  style = "position: absolute; top: 0px; left: 1105px; background: #bbbbbb;" >2°</button>
+		
+		<button class='quant' id = 'btn_clear_rotation'  style = "position: absolute; top: 0px; left: 1150px; background: #ffdddd;" >Erase all points</button>
+		<label id = text_sg > &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<em>Stern–Gerlach experiment</em></label>
+	</div>
+	</div>
+</div>
+
+<br>
+<p>
+<em>
+This part presents a visualization program that has two modes of operation.
+<br>
+In the first mode (initial), the program's operation completely coincides with the work of the program 
+from the first part, which demonstrates the visualization of the <b>Stern-Gerlach</b> experiment.
+<br>
+Using the trigger button, the program can be switched to the operating mode in which the visualization 
+will be shown. the classical <b>Bloch sphere</b>.
+<br>
+Using the <b>Rotate X, Y, Z</b> buttons, you can rotate the <b>Bloch vector</b> around
+corresponding axes.
+<br>
+Using the <b>Rotate N+</b> and <b>Rotate N-</b> buttons, you can rotate the <b>Bloch vector</b> around
+arbitrary axis. The position of this axises can be set using the angles  "<b>Axis θ</b>" and "<b>Axis φ</b>".
+<br>
+
+Pressing the <b>X, Y, Z</b> and <b>H</b> buttons corresponds to the action of the <b>Pauli</b> gates <b>X, Y, Z</b> 
+and the <b>Hadamard</b> gate <b>H</b>.
+</em>
+</p>
+<hr>
+<p>
+
+<span class=blue>
+&emsp;Sphere rotation - left mouse button drag<br>
+&emsp;Sphere size - middle mouse button drag, or mousewheel<br>
+&emsp;Sphere movement on screen - right mouse button drag
+</span>
+</p>
+<hr>
+<span class=blue>
+Вращение колесика мыши вперед/назад позволяет уменьшить/увеличить размер трехмрного объекта на экране.
+<br>
+Если нажать левую клавшу мыши то при ее движении трехмерный объект будет вращаться на экране.
+<br>
+Если нажать правую клавшу мыши то при ее движении трехмерный объект будет двигатья по экрану.  
+</span>
+<hr>
+<p>
+В данной части представлена программа визуализации имеющая два режима работы.
+<br>
+В первом режиме (исходном) работа программы полностью совпадает с работой програмы из первой части, которая
+демонстрирует визуализацию эксперимента Ш-Г.
+<br>
+<b><span class=purple>При помощи триггерной кнопки
+<br>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img src="trigger.png">
+<br>
+программу можно переключить в режим работы в котором будет показана визуализация классической сферы Блоха.
+&ensp;Произведем это переключение</span></b>.
+</p>
+
+<p>
+Два режима объединены в одной программе для того, чтобы показать, что эксперимент Ш-Г и сфера Блоха
+имеют между собой (на мой взгляд) достаточно глубокую связь.
+</p>
+<p>
+Отличие заключается в том, что теперь мы предполагаем, что спин на сфере Блоха (второй режим) всегда приготовлен вертикально вверх 
+и его полярный угол равен  <b><em>θ<sub>prepare spin</sub></em> = 0</b>  (в первом режиме спин прготовляся вдоль вектора <b>A</b>).  
+Измерение, как и раньше, происходит <b><em>по направллению</em></b> вектора <b>D</b> с полярным углом равным <b><em>θ<sub>device</sub></em></b>.
+Исходя из этих предположений получаем, что  <nobr><b>α = <em>θ<sub>device</sub></em></b></nobr> и теперь можно 
+обозначить угол <b>α</b> просто как <nobr><b>α = <em>θ<sub>device</sub></em> = <em>θ<sub></em></b>.</nobr>
+<br>
+Вектор <b>D</b> (от слова <b>D</b>evice) в первом режиме работы данной програмы используетсяся для того, чтобы подчеркнуть 
+процесс проведения измерения прибором Ш-Г вдоль этого вектора. Во втором режиме работы этот вектор  обозначен 
+как <b>B</b>. Вектор <b>B</b> - это вектор Блоха (<b>B</b>loch vector). Этот вектор является обычным
+трехмерным вектором задающим координаты точки на сфере. Кнопка <b>Measurement</b> во втором режиме не нужна,
+так как не требуется приготовлять спин. Измерение спина происходит сразу при изменении углов задающих 
+положение вектора <b>B</b>.
+<br>
+&ensp;&ensp;<em>Во втором режиме работы измерение спина производится вдоль вектора <b>B</b> - вектора Блоха</em>.
+</p>
+<hr>
+<p>
+Рассмотрим режим в котором программа отображает <em>сферу Блоха</em>. Это геометрическое представление квантового состояния
+в двухуровневой системе, которое носит название <big><em>кубит</em></big>. Сама сфера получила наазвание в честь швейцарского физика Феликса Блоха.
+Но часто эта сфера, когда она используется при описании стереографической проекции, носит название <em>сферы Римана</em>, 
+а при описании состояния поляризации света ее обычно называют <em>сферой Пуанкаре</em>.
+</p>
+<p>
+&ensp;<big><em>Кубит</em></big> является простейшей квантово-механической системой и обобщает классический бит.  
+Так как кубит представляет собой  двухуровневую систему то он может иметь два возможных значения 0 и 1:
+<br>
+Фактически это уже рассмотренные в предыдущей части квантовые состояния |up〉 и |dn〉. Основная новая особенность кубита по сравнению 
+с классическим битом – это возможность иметь состояния суперпозиции значений 0 и 1. 
+То есть кубит может находиться в произвольной суперпозиции двух базовых состояний |0〉 и |1〉. 
+Математическое описание представлено в терминах суммы двух базисных векторов, 
+взвешенных по (комплексным) амплитудам. Это соответствует 2-мерному вектору с комплексными коэффициентами а и b,
+который является элементом векторного пространства C<sup>2</sup>. Такая суперпозиция может быть истолкована 
+как интерференция двух возможностей.  Квантовое остояние кубита описывается как
+<br>
+&ensp;&ensp;&ensp;&ensp; <b>|ψ〉</b>  =  a·<b>|up〉</b> + b·<b>|dn〉</b> &ensp;&ensp;(*)
+<br>
+ &ensp; или 
+<br>
+&ensp;&ensp;&ensp;&ensp;  |ψ〉 = a⋅|0〉 + b⋅|1〉 &ensp;&ensp; (**) 
+</p>
+
+<p>
+В выражении (*) базисные векторы <b>|up〉</b> и <b>|dn〉</b> ортогональны друг другу,
+а в выражении (**) базис представлен парой квантовых состояний |0〉 и |1〉 не ортогональных
+друг другу, но разнонаправленных и лежащих на одной прямой. Но фактически вектор |1〉
+это тот же вектор <b>|dn〉</b> только повернутый на 90°:
+<br>
+&ensp;&ensp;&ensp;&ensp;<img src = "up_down.png">
+</p>
+
+<p>
+Такое представление вектора состояния
+<br>
+&ensp;&ensp;&ensp;&ensp; |ψ〉 = a⋅|0〉 + b⋅|1〉 
+<br>
+сделано для того, чтобы на сфере Блоха можно было отобразить истинный размер углов θ, а не их половинный  размер θ/2.
+И следует помнить, что на самом деле базисные векторы |0〉  и |1〉 являются ортогональными векторами
+несмотря на то, что они показаны лежащими на одной прямой. Это ничто иное, как просто условность принятая
+специально для изображения векторов состояния на сфере Блоха.
+</p>
+
+
+
+<p>
+<!-- <font size="3" color="black" face="Arial"> -->
+<!-- <font size="4" color="black" face="Courier New"> -->
+Вектор состояния |ψ〉 определяется суммой двух векторов
+&emsp; |ψ〉 = a⋅|0〉 + b⋅|1〉  <br>
+В этой формуле |0〉 и |1〉 являются базисными векторами.  Коэффициенты a и b стоящие
+перед базисными векторами являются в общем случае комплексными числами. 
+Эти два числа называются <em>амплитудами вероятности</em>.<br>
+
+<hr>
+Как известно любое комплексное число можно записать в показательной форме.
+Числа a и b в показательной форме выглядят следующим образом:<br>
+&emsp; a = r<sub>a</sub>⋅e<sup>iφ<sub>a</sub></sup>  <br>
+&emsp; b = r<sub>b</sub>⋅e<sup>iφ<sub>b</sub></sup>  <br>
+
+Вектор состояния |ψ〉 в этом случае примет следующий вид: <br>
+&emsp; |ψ〉 = r<sub>a</sub>⋅e<sup>iφ<sub>a</sub></sup>|0〉 + r<sub>b</sub>⋅e<sup>iφ<sub>b</sub></sup>|1〉 <br>
+<br>
+Введем следующее обозначение<br>
+&emsp; φ = φ<sub>b</sub>-φ<sub>a</sub> &emsp;
+<br>	
+и, следовательно, <br>
+&emsp; φ<sub>b</sub> = φ + φ<sub>a</sub>
+<br>
+Тогда предыдущее выражение для вектора состояния |ψ〉 можно переписать в таком виде<br>
+&emsp; |ψ〉 = r<sub>a</sub>⋅e<sup>iφ<sub>a</sub></sup>|0〉 + r<sub>b</sub>⋅e<sup>iφ<sub>b</sub></sup>|1〉 = 
+
+r<sub>a</sub>⋅e<sup>iφ<sub>a</sub></sup>|0〉 + r<sub>b</sub>⋅e<sup>iφ</sup>⋅e<sup>iφ<sub>a</sub></sup>|1〉 =
+
+e<sup>iφ<sub>a</sub></sup>(r<sub>a</sub>|0〉 + r<sub>b</sub>⋅e<sup>iφ</sup>|1〉)
+<br>
+<br>
+Для вектора состояния имеет значение только <b><em>отношение</em></b> в котором находятся между собой
+амплитуды вероятности. Поэтому можно безболезненно умножить обе состовляющие вектора |ψ〉 на
+одно и то же число равное e<sup>-iφ<sub>a</sub></sup>. После этого умножения получим
+следующее выражение для |ψ〉 
+<br>
+&emsp; |ψ〉 = r<sub>a</sub>⋅|0〉 + r<sub>b</sub>⋅e<sup>iφ</sup>⋅|1〉
+<br>
+Заметим, что уможение вектора состояния |ψ〉 можно производить на любое число - действительное, комплексное или
+чисто мнимое - <em>физический</em> смысл от этого не изменится.
+<br>
+
+Угол φ<sub>a</sub> имеет название "<b><em>глобальная фаза</em></b>". Так как глобальная фаза появляется
+только в результате математических преобразований, то она не имеет физического смысла и поэтому ее можно
+в дальнейшем не учитывать. В отличие от глобальной фазы угол φ имеет прямой физический смысл, который
+определяет разность фаз между компонентами вектора состояния. Угол φ имеет собой название "<b><em>локальная фаза</em></b>". 
+Локальная фаза играет большую роль при интерференции электронов.
+<br>
+<br>
+
+Амплитуды вероятности a и b обычно нормируются на 1.
+Следовательно и сумма r<sub>a</sub><sup>2</sup> + r<sub>b</sub><sup>2</sup> также должна
+быть равной 1:<br>
+&emsp;r<sub>a</sub><sup>2</sup> + r<sub>b</sub><sup>2</sup> = 1<br>
+	<br>
+
+Исходя из этого удобно ввести следующую нормировку (т. к. всегда cos<sup>2</sup>+sin<sup>2</sup>=1)<br>
+&emsp; r<sub>a</sub> = cos(θ/2) <br>    
+&emsp; r<sub>b</sub> = sin(θ/2)<br>
+<br>
+
+Тогда выражение для вектора состояния |ψ〉 примет вид
+<br>
+&emsp; |ψ〉 = cos(θ/2)|0〉 + sin(θ/2)⋅e<sup>iφ</sup>|1〉<br>
+<br>
+&emsp;Рассмотрим сферу имеющюю единичный радиус и параметризацию поверхности в терминах θ и φ, которые фактически
+являются сферическими полярныыми координатами для поверхности сферы.  
+<br>	
+&ensp;&ensp;&ensp;&ensp;<img src = "part2_11.png">
+<br>
+Каждому вектору (он называется вектором Блоха), который расположен на сфере соответствует вектор квантового состояния |ψ〉.
+Задавая вектор Блоха (координаты θ и φ на сфере) мы получаем (после соответствующих вычислений) вектор
+квантового состояния |ψ〉, значение которого отображается в программе визуализации.
+</p>
+<p>
+Логические операции над кубитами, так же как и в классической электронике, осуществляют специальные 
+логические элементы, называемые квантовыми вентилями. Операцию, выполняемую любым однокубитным вентилем, 
+можно представить как поворот вектора, характеризующего состояние кубита, в другую точку сферы Блоха.
+Данная программа позволяет визуально наблюдать как работают квантовые вращения и некоторые наиболее известные вентили.
+</p>
+
+
+
+<p>
+Так как каждая точка на поверхности сферы задает единичный вектор в спинорном пространстве,
+то найдем координаты этих векторов на сфере. Для этого рассмотрим еще раз процесс измерения.
+В квантовой механике те величины, которые может зарегистрировать исследователь, приборами или
+визуально, носят название <em>наблюдаемых</em> величин или просто <em>наблюдаемых</em>.
+В процессе измерения спина электрона прибором Штерна-Герлаха получается только одно из значений
+наблюдаемой величины - либо +1 либо -1. Других значений, измеряемых прибором, быть не может.
+В эксперименте нас интересуют вероятности получения +1 и -1 относительно приготовленного 
+состояния. Состояние, в котором происходит приготовление спина, задается вектором исходящим из
+центра сферы и заканчивающимся на поверхности сферы. Состояние, в котором происходит измерение спина, 
+также задается вектором исходящим из центра сферы и заканчивающимся на ее поверхности.
+Поэтому задача состоит в вычислении концов векторов лежащих на сфере - в спинорном пространстве.
+В квантовой механике спина это происходит следующим образом.
+</p>
+
+<p>
+Вводится понятие оператора. Будем считать, что оператор это квадратная матрица 2x2.
+В качестве постулата принимается тот факт, что наблюдаемым величинам (в данном случае +1 и -1)
+соответствуют эрмитовы операторы. Как определяются эрмитовы операторы можно прочитать во
+множестве книг и статей и поэтому не будем на этом останавливаться.
+Для каждого направления на сфере существует свой оператор. Для этого оператора можно
+найти специальный вектор - собственный вектор. 
+</p>
+
+<hr>
+
+<p>
+Одними из основных операторов в квантовой механике являются так называемые матрицы <em>Паули</em>.
+Рассмотрим их вкратце. 
+</p>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img src = "page_1.png"><br>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img src = "page_2.png"><br>
+<p>
+В   </span><a href="../QS_Part4/QS_Part4.html"> <span class=brown> Части &#8547;  </span></a>
+приведено решение упражнений 3.3, 3.4 и 3.5 из книги Сасскинда и Фридмана "Квантовая механика.
+</p>
+<p>
+Одной из основных областей, где находят применение матрицы Паули являются квантовые вращения.
+Но, перед тем как заняться непосредственно вращениями, необходимо рассмотреть, казалось бы, несвязанную с этим тему - 
+возведение числа в степень, когда в качестве показателя степени выступает матрица. Рассмотрим этот вопрос подробнее.
+</p>
+<p>
+Матрицы Паули σ<sub>x</sub>, σ<sub>x</sub>, σ<sub>x</sub>, которые в дальнейшем мы будем обозначать также как  X, Y и Z , когда они
+возведены в степень, то они порождают операторы вращения, которые поворачивают
+<b>вектор Блоха</b> = ( sin(θ)cos(φ), sin(θ)sin(φ), cos(θ) ) вокруг осей  x, y и z на заданный угол α:
+<br>
+&ensp;&ensp;&ensp;&ensp;&ensp;<img src = "rotation_X_Y_Z.png">
+ <br>
+</p>
+<p>
+&ensp;&ensp;&ensp;&ensp;&ensp;<img src = "exponenta_text.png">
+</p>
+<p>
+Может также возникнуть вопрс - почему для осуществления поворотов можно использовать возведение в степень.
+Для ответа на этот вопрос следует вспомнить, что экспоненту можно рассматривать как оператор выполняющий 
+поворот вектора
+<br>
+&ensp;&ensp;&ensp;&ensp;<big><b><em>e<sup>αi</sup> = cos(α) + i·sin(α)</em></b></big>
+<br>
+<p>
+На <em>youtube</em> есть хорошее видео на эту тему <b><a href="https://www.youtube.com/watch?v=O85OWBJ2ayo"target="_blank">
+How (and why) to raise e to the power of a matrix</a></b>
+</p>
+<p>
+Вернемся к квантовым вращениям.
+</p>
+<p>
+В программе визуализации данной главы можно наблюдать вращения вектора Блоха вокруг осей X, Y и Z. Вращения
+выполняются путем нажатия кнопок "<b>Rotate X+</b>" и "<b>Rotate X-</b>", "<b>Rotate Y+</b>" и "<b>Rotate Y-</b>", 
+"<b>Rotate Z+</b>" и "<b>Rotate Z-</b>". 
+Можно задать три значения шага вращения при помощи кнопок "<b>2°</b>", "<b>5°</b>" и "<b>10°</b>". На сфере Блоха можно будет 
+при этом увидеть соответствующие точки. Также будут выводиться значения вектора состояния. Одновременно на комплексной
+плоскости z = 0 отобразятся точки (черный цвет и чуть меньшего размера) получившиеся в результате 
+дробно-линейного преобразования (смотри текст ниже).
+</p>
+
+<p>
+В приведенной программе можно осуществить вращение и вокруг произвольной пространственной оси. Для этой цели
+служат кнопки "<b>Rotate N+</b>" и "<b>Rotate N-</b>". Положение оси вращения задается при помощи углов
+"Angles axis rotation" (Axis θ и Axis φ). При помощи вращения вокруг произвольной пространственной оси
+можно имитировать действие любого однокубитного квантового вентиля.
+</p> 
+
+<p>
+Стереть с экрана построенные в результате вращения точки можно нажав клавишу "<b>Erase all points</b>".
+</p>
+<p>
+Предположим, что исходное квантовое состояние с углами θ и φ задающими положение вектора Блоха равно
+<br>
+&emsp;&emsp; <b>|ψ〉 = cos(θ/2)|0〉 + sin(θ/2)⋅e<sup>iφ</sup>|1〉</b><br>
+Тогда квантовое состояние после поворота вокруг оси X можно на угол α рассчитать по формуле
+<br> 
+&emsp;&emsp;<b>|ψ<sup>'</sup>〉 = R<sub>x</sub>(α)· |ψ〉</b>
+<br>Тогда новое квантовое состояние <b>|ψ<sup>'</sup>〉</b> будет определяться вектором Блоха
+с углами <b>θ<sup>'</sup></b> и <b>φ<sup>'</sup></b>
+<br>
+&emsp;&emsp; <b>|ψ<sup>'</sup>〉 = cos(θ<sup>'</sup>/2)|0〉 + sin(θ<sup>'</sup>/2)⋅e<sup>iφ<sup>'</sup></sup>|1〉</b>
+</p>
+<p>
+В файле <em>button.js</em> в функции <em>function X_plus()</em> можно увидеть программу расчета 
+квантового состояния <b>|ψ<sup>'</sup>〉</b> и углов <b>θ<sup>'</sup></b> и <b>φ<sup>'</sup></b> с комментариями к расчету
+применительно к повороту вокруг оси X. Расчет поворотов вокруг осей Y и Z осуществляется подобным образом.
+</p>
+
+</p>
+<p>
+Перейдем к рассмотрению матриц Паули как квантовых вентилей. Также рассмотрим вентиль Адамара <b>H</b>. 
+<br>
+</p>
+<p>
+Вентиль <b>X</b> осуществляет поворот вектора Блоха на 180°
+вокруг оси X, вентиль <b>Y</b> поворот на 180° вокруг оси Y, а вентиль <b>Z</b> поворот на 180° вокруг оси Z. В 
+соответствии с поворотами вектора Блоха изменяются квантовые состояния |ψ〉. Для визуализации поворотов используются
+кнопки "<b>X</b>", "<b>Y</b>" и "<b>Z</b>".
+<br>
+<!-- &emsp;&emsp;&emsp;&emsp;<img src = "x_y_z.png"> -->
+</p>
+<p>
+&emsp;&emsp;&emsp;&emsp;<img src = "PauliX.png">
+</p>
+
+<p>
+&emsp;&emsp;&emsp;&emsp;<img src = "PauliYZ.png">
+</p>
+
+<p>
+По <b><a href="https://www.youtube.com/watch?v=r0nDhrAwskU&list=PLx5rbdJH2sWYSohLmK3aAYMr9T7uNyOqv" target="_blank">ссылке</a></b>
+можно найти хорошие видеолекции по матрицам Паули, спину и сфере Блоха. Английский язык в них не очень сложен и также можно
+включить субтитры с переводом на русский. Лектор подробно приводит все выкладки на доске.
+</p>
+&emsp;&emsp;&emsp;&emsp;<img src = "Hadamard.png">
+</p>
+<br>
+<hr>
+<p>
+  Рассмотрим еще один подход к сфере Блоха. Ниже приведен рисунок показывающий стереографическую  проекцию единичной сферы 
+с южного полюса S на плоскость z = 0. Стереографическая  проекция отображает  
+северное полушарие на область  лежащую внутри единичной окружности.  
+Южное полушарие  отображается  на область  за пределами единичной окружности.  
+Экватор  совпадает с  единичной окружностью. 
+
+<br>
+&ensp;&ensp;&ensp;&ensp;<img src = "stereographics.png">
+<br>
+
+  Пусть  <b>O(0, 0, 0)</b>  - центр сферы,  <b>N(0, 0, 1)</b>  - северный полюс, а  <b>S(0, 0, -1)</b>   южный полюс.      
+Пусть   <b>P’(x’, y’, 0)</b>  - пересечение прямой   <b>SP</b>  с экваториальной плоскостью  <b>z = 0</b>, 
+а  <b>Q(0, 0, z)</b> – проекция  <b>P(x, y, z)</b>  на ось  <b>z</b>.   Точка  <b>P’</b>   называется стереографической проекцией точки  <b>P</b>.  
+Из  подобных  треугольников   <b>SOP’</b>  и   <b>SQP</b>  мы находим:
+<br>
+&ensp;&ensp;&ensp;&ensp; <img src = "ster_formula_1.png">
+<br>
+Теперь введем в плоскости <b>z = 0</b> комплексную переменную  <b>ζ</b> 
+<br>
+&ensp;&ensp;&ensp;&ensp;<img src = "ster_formula_2.png">
+<br>
+В программе визуализации комплексная переменная ζ обозначена стандартным образом принятым для 
+комплексных чисел   ζ = <b>z = x + iy</b>. В этом выражении <b>x</b> и <b>y</b> являются коэффициентами перед 
+действительной и мнимой частями переменной <b>z</b>, и уже не пространственными координатами (<em>x, y, z</em>).
+
+В программе визуализации комплексная плоскость расположена на пространственной плоскости <b>z = 0</b>.
+Комплексное число  ζ = <b>z = x + iy</b>  находится чисто геометрически как точка <b>P'</b> пересечения
+проецирующей прямой <b>PS</b> с плоскостью <b>z = 0</b>.
+Это так называемое <b><em>дробно-линейное преобразование</b></em>.
+В программе приведенной в этой части можно увидеть
+это преобразование при отображении поворотов на сфере на комплексную плоскость.
+</p>
+<p>
+Вращая вектор Блоха, можно увидеть, что окружности на сфере отображаются в окружности на комплексной плоскости z = 0,
+которая проходит горизонтально через центр сферы (имеет серый цвет).
+Такие отображения являются характерным признаком конформного отбражения (дробно-линейного преобразования).
+На следующем скриншоте показаны окружности на сфере полученные путем вращения вектора Блоха вокруг осей X, Y и Z
+и соответствующие им окружности на комплексной  плоскости (они отображены более мелкими черными точками). 
+<br>
+c<img src = "transformation.png">
+</p>
+
+<p>
+Таким образом любая точка на сфере отображается на комплексную плоскость. Единственная точка 
+на сфере - южный полюс <b>S</b> - не имеет образа на комплексной плоскости лежащей 
+на пространственной плоскости <b>z = 0</b>.
+
+Если  |ψ〉 = <em>a</em>⋅|0〉 + <em>b</em>⋅|1〉  то мы можем разделить правую часть равенства на коэффициент <em>a</em>.
+Физическое состояние спина не изменится так значение имеет только <b><em>отношние</em></b> числа <em>b</em> к числу <em>a</em>.
+В результате получим |ψ〉 = <em>a</em>⋅|0〉 + <em>(b/a)</em>⋅|1〉. Число <em>(b/a)</em> - это обыкновенное комплексное число.
+Но теперь, если  <em>(b/a)</em> принимает значение равное  <big>∞</big>,  то спин направлен вертикально вниз.
+Когда число задают в виде отношения двух других чисел, то такой способ называют введением 
+<em>однородных</em> координат. Подробно про это рассказывается в кигах Роджера Пенроуза.
+
+Таким образом каждая точка сферы имеет свое отображение на комплексной плоскости. Например, задав в программе визуализации
+в <b>GUI</b> полярный угол электрона <big>θ° = 0</big> получим  
+<br>
+&ensp;&ensp;&ensp;<b>z = 0 + 0·i</b>,
+<br>
+а задав полярный угол электрона <big>θ = 180°</big> получим  <span class=red2>z = <big>∞</big></span>.
+</p>
+
+<p>
+На видеоролике со сферой Римана <b><a href="https://www.youtube.com/watch?v=l3nlXJHD714" target="_blank">Riemann Sphere</a></b>
+показано отображение точек сферы на плоскость с северного полюса сферы.
+</p>
+
+<h3 align = "center">&emsp;&emsp;
+<a href="../index.html"> <span class=brown>Preface</span></a> 
+
+&emsp;&emsp;&emsp;
+<a href="../QS_Part1/QS_Part1.html"> <span class=brown>Part Ⅰ </span></a>  
+
+&emsp;&emsp;&emsp;
+ <a href="../QS_Part2/QS_Part2.html"> <span class=brown>Part Ⅱ  </span></a>
+ 
+ &emsp;&emsp;&emsp;
+ <a href="../QS_Part4/QS_Part4.html"> <span class=brown>Part &#8547;  </span></a>
+</h3>
+
+</body>
+</html>
