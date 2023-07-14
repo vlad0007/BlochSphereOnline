@@ -1,4 +1,7 @@
 # BlochSphereOnline<p>
+<p>
+  This site<a href="https://vlad0007.github.io/BlochSphereOnline//" target="_blank"> Bloch sphere online </a>
+</p>
 &ensp;&ensp;Almost all the mathematics describing the spin of an individual electron can be deduced from the experiment
 <b>Stern-Gerlach</b>. In the presented software models, this experiment is shown in a slightly different form
 than it is described in most books and articles. But this does not change the essence of the experiment.
