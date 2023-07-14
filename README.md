@@ -3,7 +3,7 @@
   This site<a href="https://vlad0007.github.io/BlochSphereOnline//" target="_blank"> Bloch sphere online </a>
 </p>
 <p>
-&ensp;&ensp;Almost all the mathematics describing the spin of an individual electron can be deduced from the experiment
+&ensp;&ensp;&ensp;Almost all the mathematics describing the spin of an individual electron can be deduced from the experiment
 <b>Stern-Gerlach</b>. In the presented software models, this experiment is shown in a slightly different form
 than it is described in most books and articles. But this does not change the essence of the experiment.
 In addition, from the above Stern-Gerlach model, it can be seen that this experiment is surprisingly suitable
@@ -11,7 +11,7 @@ for understanding the <b><em>Bloch sphere</b></em>, which in the best way visual
 the quantum spin of an individual electron.
 </p>
 <p>
-&ensp;&ensp;The article consists of four parts
+&ensp;&ensp;&ensp;The article consists of four parts
 </p>
 <p>
 &ensp;&ensp;In the  <a href=" https://vlad0007.github.io/BlochSphereOnline/QS_Part1/QS_Part1.html"> <span class=brown>first part</span> </a>, the online program model of the Stern-Gerlach experiment is considered in detail. The three-dimensional visualization of this experiment
