@@ -14,7 +14,7 @@ the quantum spin of an individual electron.
 &ensp;&ensp;The article consists of four parts
 </p>
 <p>
-&ensp;&ensp;In the <a href=" https://vlad0007.github.io/BlochSphereOnline/QS_Part1/QS_Part1.html"> <span class=brown>first part</span> </a>, the online program model of the Stern-Gerlach experiment is considered in detail. The three-dimensional visualization of this experiment
+&ensp;&ensp;In the  <a href=" https://vlad0007.github.io/BlochSphereOnline/QS_Part1/QS_Part1.html"> <span class=brown>first part</span> </a>, the online program model of the Stern-Gerlach experiment is considered in detail. The three-dimensional visualization of this experiment
 is made in such a way that on its basis a three-dimensional visualization
 of the Bloch sphere is obtained quite naturally.
 </p>
