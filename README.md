@@ -2,6 +2,7 @@
 <p>
   This site<a href="https://vlad0007.github.io/BlochSphereOnline//" target="_blank"> Bloch sphere online </a>
 </p>
+<p>
 &ensp;&ensp;Almost all the mathematics describing the spin of an individual electron can be deduced from the experiment
 <b>Stern-Gerlach</b>. In the presented software models, this experiment is shown in a slightly different form
 than it is described in most books and articles. But this does not change the essence of the experiment.
@@ -13,16 +14,16 @@ the quantum spin of an individual electron.
 &ensp;&ensp;The article consists of four parts
 </p>
 <p>
-&ensp;&ensp;In the first part, the online program model of the Stern-Gerlach experiment is considered in detail. The three-dimensional visualization of this experiment
+&ensp;&ensp;In the <a href="QS_Part1/QS_Part1.html"> <span class=brown>first part</span> </a>, the online program model of the Stern-Gerlach experiment is considered in detail. The three-dimensional visualization of this experiment
 is made in such a way that on its basis a three-dimensional visualization
 of the Bloch sphere is obtained quite naturally.
 </p>
 <p>
-&ensp;&ensp;The second part shows how the basic formulas for calculating the electron spin are obtained from the software model.
+&ensp;&ensp;<a href="QS_Part2/QS_Part2.html"> <span class=brown>The second part</span> </a> shows how the basic formulas for calculating the electron spin are obtained from the software model.
 For this purpose, the program model from the first part is viewed from a slightly different point of view.
 </p>
 <p>
-&ensp;&ensp;In the third part, a model is made consisting of two separate programs that can
+&ensp;&ensp;In the <a href="QS_Part3/QS_Part3.html"> <span class=brown>third part</span> </a> a model is made consisting of two separate programs that can
 switch between each other. The first of them basically repeats the program model from the first part.
 And the second program is a online model of the Bloch-Riemann sphere. It allows you to produce
 <em><b>quantum rotations</b></em> on the Bloch sphere and, at the same time, shows the representation of these rotations on the 
@@ -33,13 +34,13 @@ with the Bloch sphere.
 the transition to the Bloch sphere is blocked. In the third part, the transition to the Bloch sphere is unlocked. Therefore, it
 is possible to carry out both the Stern-Gerlach experiment and quantum rotations on the Bloch sphere at the same time.
 <br>
-&ensp;&ensp;In the third part, special attention is paid to the visualization of quantum rotations.
+&ensp;&ensp;In the <a href="QS_Part3/QS_Part3.html"> <span class=brown>third part</span> </a>, special attention is paid to the visualization of quantum rotations.
 Quantum rotations are of particular importance because each spin rotation can be associated
 with a one-qubit quantum gate and vice versa, each quantum rotation corresponds to a quantum gate.
 Understanding the mechanism of quantum rotations helps to understand the basis of quantum computing.
 </p>
 <p>
-&ensp;&ensp;The fourth part contains solutions to exercises 3.3, 3.4 and 3.5 from the book by Leonard Susskind and Art Friedman "<b>Quantum Mechanics</b>".
+&ensp;&ensp;The <a href="QS_Part4/QS_Part4.html"> <span class=brown>fourth part</span> </a> contains solutions to exercises 3.3, 3.4 and 3.5 from the book by Leonard Susskind and Art Friedman "<b>Quantum Mechanics</b>".
 Solutions to these exercises are not given in their book.
 But the very simple mathematics used in solving these exercises makes it possible to better understand the essence
 of eigenvalues and eigenvectors when describing quantum spin.
